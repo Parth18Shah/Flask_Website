@@ -1,0 +1,57 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Feed
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for( '.static', filename='feed.css' ) }}" >
+{% endblock %}
+
+{% block content %}
+<div class ="nav_bar">
+    <div >
+      <ul>
+        <li><a href="{{ url_for( 'Feed' )}}"> Feed</a></li>
+        <li><a href="{{ url_for( 'Home' )}}"> Log Out</a></li>
+      </ul>
+    </div>
+</div>
+
+<h3 style="color: #008000; text-align: center; font-family:Times New Roman ;">Ask or Answer</h3>
+
+<form action="/Feed", method='POST'>
+   {{form.hidden_tag()}}
+   <div style="padding: 15px;">
+      <div style="color: #008000;" >{{ wtf.form_field(form.question) }}
+      <div style="color: #008000;" >{{  wtf.form_field(form2.answer) }}
+   </div>
+   <p>
+    <div style="text-align: center;">
+      <input type=submit value="Publish">
+    </div>
+    <br>
+</form>
+
+
+<div class="row">
+  <div class="column" style="background-color:#ffffff;font-size: 100%">
+    <h2 style="text-align: center;">Questions</h2>
+    <p> {% for ques in new_questions  %}
+          <li>{{ ques.question }}</li>
+        {% endfor %} 
+    </p>
+  </div>
+  <div class="column" style="background-color:#ffffff;font-size: 100%">
+    <h2 style="text-align: center;">Answers</h2>
+    <p> {% for ans in new_answers  %}
+          <li>{{ ans.answer }}</li>
+        {% endfor %} 
+    </p>
+  </div>
+</div>
+  
+{% endblock %}
